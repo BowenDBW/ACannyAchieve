@@ -25,9 +25,8 @@ def Canny(img, threshold_min, threshold_max):
                        new_gray[i + 1, j - 1] - new_gray[i - 1, j + 1] - \
                        2 * new_gray[i, j + 1] - new_gray[i + 1, j + 1]
 
-            dy[i, j] = new_gray[i - 1, j - 1] + 2 * new_gray[i - 1, j] + \
-                       new_gray[i - 1, j + 1] - new_gray[i + 1, j - 1] - \
-                       2 * new_gray[i + 1, j] - new_gray[i + 1, j + 1]
+            dy[i, j] = new_gray[i - 1, j - 1] + 2 * new_gray[i - 1, j] + new_gray[i - 1, j + 1] - new_gray[i + 1, j - 1] \
+                       - 2 * new_gray[i + 1, j] - new_gray[i + 1, j + 1]
             d[i, j] = np.sqrt(np.square(dx[i, j]) + np.square(dy[i, j]))
             dDegree[i, j] = math.degrees(math.atan2(dy[i, j], dx[i, j]))
             if dDegree[i, j] < 0:
@@ -45,8 +44,6 @@ def Canny(img, threshold_min, threshold_max):
             if d[i, j] == 0:
                 NMS[i, j] = 0
             else:
-                g1 = None
-                g2 = None
                 if (22.5 >= dDegree[i, j] >= 0) or (dDegree[i, j] >= 337.5):
                     g1 = NMS[i, j - 1]
                     g2 = NMS[i, j + 1]
